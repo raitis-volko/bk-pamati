@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pamatu veidi — BK konstrukcijas</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f0f4f8;
+    color: #1a2332;
+    padding: 40px 20px;
+  }
+
+  header { text-align: center; margin-bottom: 48px; }
+  header h1 { font-size: 2.2rem; font-weight: 700; color: #1F3864; }
+  header p  { margin-top: 8px; font-size: 0.95rem; color: #5a6a7e; }
+
+  /* ── GRID ── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+    gap: 24px;
+    max-width: 1360px;
+    margin: 0 auto;
+  }
+
+  /* Section divider spanning full grid width */
+  .section-divider {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .section-divider-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #4472c4;
+    white-space: nowrap;
+  }
+  .section-divider-line {
+    flex: 1;
+    height: 2px;
+    background: #c8d8ef;
+    border-radius: 2px;
+  }
+  .section-divider:first-child { margin-top: 0; }
+
+  /* ── CARD ── */
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-header {
+    padding: 16px 20px 13px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid #e8eef5;
+  }
+  .card-icon {
+    width: 46px; height: 46px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; flex-shrink: 0;
+  }
+  .card-header h2 { font-size: 1.05rem; font-weight: 700; color: #1F3864; line-height: 1.3; }
+  .card-header .tag {
+    font-size: 0.68rem; font-weight: 700;
+    background: #eef3fb; color: #4472c4;
+    border: 1px solid #c8d8ef;
+    border-radius: 4px; padding: 2px 7px;
+    margin-left: auto; flex-shrink: 0;
+  }
+
+  /* ── TRUTHS ── */
+  .truths {
+    padding: 13px 18px 4px;
+    border-bottom: 1px dashed #dde6f0;
+  }
+  .truths-label {
+    font-size: 0.66rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.8px;
+    color: #8a9ab0; margin-bottom: 8px;
+  }
+  .truth-list {
+    list-style: none;
+    margin-bottom: 12px;
+  }
+  .truth-list li {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #1F3864;
+    padding: 3px 0 3px 14px;
+    position: relative;
+    line-height: 1.4;
+  }
+  .truth-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: #4472c4;
+    font-weight: 700;
+  }
+
+  /* ── PROS / CONS ── */
+  .card-body { padding: 13px 18px 14px; }
+
+  .pros-cons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .pros, .cons { border-radius: 9px; padding: 10px 12px; }
+  .pros { background: #f0faf4; border: 1px solid #b7e4c7; }
+  .cons { background: #fff5f5; border: 1px solid #ffc9c9; }
+  .pros h3, .cons h3 {
+    font-size: 0.68rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.6px;
+    margin-bottom: 6px;
+  }
+  .pros h3 { color: #2d7a4f; }
+  .cons h3 { color: #c0392b; }
+  .pros ul, .cons ul { list-style: none; font-size: 0.82rem; line-height: 1.5; }
+  .pros ul li::before { content: '✓ '; color: #2d7a4f; font-weight: 700; }
+  .cons ul li::before { content: '✗ '; color: #c0392b; font-weight: 700; }
+  .pros ul li, .cons ul li { margin-bottom: 3px; color: #3a4a5c; }
+
+  /* ── MEMORIZE ── */
+  .memorize {
+    background: #1F3864;
+    padding: 11px 18px;
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .memorize-label {
+    font-size: 0.63rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.8px;
+    color: #7a9cc8; white-space: nowrap;
+  }
+  .cost-badge {
+    font-size: 0.82rem; font-weight: 700;
+    padding: 3px 14px; border-radius: 20px;
+    letter-spacing: 0.3px;
+  }
+  .cost-low  { background: #d1fae5; color: #065f46; }
+  .cost-med  { background: #fef3c7; color: #92400e; }
+  .cost-high { background: #fee2e2; color: #991b1b; }
+  .cost-note {
+    font-size: 0.72rem; color: #8aadcc;
+    font-style: italic; flex: 1;
+  }
+
+  /* color themes — icons */
+  .theme-lenta-a .card-icon { background: #dbeafe; }
+  .theme-lenta-b .card-icon { background: #ccfbf1; }
+  .theme-lenta-c .card-icon { background: #ede9fe; }
+  .theme-lenta-d .card-icon { background: #fef9c3; }
+  .theme-platne   .card-icon { background: #dcfce7; }
+  .theme-punkts   .card-icon { background: #ffedd5; }
+  .theme-palis    .card-icon { background: #fce7f3; }
+  .theme-skruvp   .card-icon { background: #ede9fe; }
+
+  /* color themes — titles */
+  .theme-lenta-a .card-header h2 { color: #1d4ed8; }
+  .theme-lenta-b .card-header h2 { color: #0f766e; }
+  .theme-lenta-c .card-header h2 { color: #7c3aed; }
+  .theme-lenta-d .card-header h2 { color: #b45309; }
+  .theme-platne   .card-header h2 { color: #15803d; }
+  .theme-punkts   .card-header h2 { color: #c2410c; }
+  .theme-palis    .card-header h2 { color: #be185d; }
+  .theme-skruvp   .card-header h2 { color: #6d28d9; }
+
+  /* ── SUMMARY TABLE ── */
+  .summary-wrap {
+    max-width: 1360px;
+    margin: 52px auto 0;
+  }
+  .summary-wrap h2 {
+    font-size: 1.15rem; font-weight: 700;
+    color: #1F3864; margin-bottom: 14px; padding-left: 4px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 13px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    font-size: 0.83rem;
+  }
+  thead tr { background: #1F3864; color: #fff; }
+  thead th { padding: 11px 15px; text-align: left; font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.4px; }
+  tbody tr:nth-child(even) { background: #f5f8fc; }
+  tbody td { padding: 9px 15px; border-bottom: 1px solid #e8eef5; color: #2a3a4c; vertical-align: middle; }
+  tbody td:first-child { font-weight: 600; color: #1F3864; }
+
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 20px; font-size: 0.73rem; font-weight: 600; }
+  .badge-low  { background: #dcfce7; color: #166534; }
+  .badge-med  { background: #fef9c3; color: #854d0e; }
+  .badge-high { background: #fee2e2; color: #991b1b; }
+  .badge-fast { background: #dbeafe; color: #1e40af; }
+  .badge-slow { background: #fce7f3; color: #9d174d; }
+
+  footer { text-align: center; margin-top: 52px; font-size: 0.75rem; color: #9aabb8; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Pamatu veidi</h1>
+  <p>Būvkonstrukciju pamati — veidi, priekšrocības un trūkumi</p>
+</header>
+
+<div class="grid">
+
+  <!-- ══ LENTAS PAMATI ══ -->
+  <div class="section-divider">
+    <span class="section-divider-label">Lentas pamati</span>
+    <div class="section-divider-line"></div>
+  </div>
+
+  <!-- 1a -->
+  <div class="card theme-lenta-a">
+    <div class="card-header">
+      <div class="card-icon">🧱</div>
+      <div><h2>Monolītais betons</h2></div>
+      <span class="tag">Lenta 1a</span>
+    </div>
+    <div class="truths">
+      <div class="truths-label">Vienkāršas patiesības</div>
+      <ul class="truth-list">
+        <li>Lej betonu veidnī</li>
+        <li>Monolīts — nav šuvju</li>
+        <li>Klasika privātmājām</li>
+      </ul>
+    </div>
+    <div class="card-body">
+      <div class="pros-cons">
+        <div class="pros">
+          <h3>Priekšrocības</h3>
+          <ul>
+            <li>Augsta izturība</li>
+            <li>Nav šuvju — ūdensnecaurlaidīgs</li>
+            <li>Brīva forma un platums</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h3>Trūkumi</h3>
+          <ul>
+            <li>Nepieciešama veidņu uzstādīšana</li>
+            <li>Ilgāks sacietēšanas laiks</li>
+            <li>Lielāka darbietilpība</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="memorize">
+      <span class="memorize-label">Izmaksas</span>
+      <span class="cost-badge cost-med">Vidējs</span>
+      <span class="cost-note">vairāk darba nekā blokiem</span>
+    </div>
+  </div>
+
+  <!-- 1b -->
+  <div class="card theme-lenta-b">
+    <div class="card-header">
+      <div class="card-icon">📦</div>
+      <div><h2>FBS betona bloki</h2></div>
+      <span class="tag">Lenta 1b</span>
+    </div>
+    <div class="truths">
+      <div class="truths-label">Vienkāršas patiesības</div>
+      <ul class="truth-list">
+        <li>Rūpnīcā gatavi bloki</li>
+        <li>Saliek kā ķieģeļus</li>
+        <li>Ātrākais variants lentai</li>
+      </ul>
+    </div>
+    <div class="card-body">
+      <div class="pros-cons">
+        <div class="pros">
+          <h3>Priekšrocības</h3>
+          <ul>
+            <li>Ātra montāža</li>
+            <li>Nav jāgaida sacietēšana</li>
+            <li>Standarta kvalitāte no rūpnīcas</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h3>Trūkumi</h3>
+          <ul>
+            <li>Nepieciešams celtnis</li>
+            <li>Šuves starp blokiem</li>
+            <li>Ierobežoti izmēri</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="memorize">
+      <span class="memorize-label">Izmaksas</span>
+      <span class="cost-badge cost-low">Zems</span>
+      <span class="cost-note">ātra montāža samazina darbaspēka izmaksas</span>
+    </div>
+  </div>
+
+  <!-- 1c -->
+  <div class="card theme-lenta-c">
+    <div class="card-header">
+      <div class="card-icon">🧩</div>
+      <div><h2>Nenoņemamie veidņi</h2></div>
+      <span class="tag">Lenta 1c</span>
+    </div>
+    <div class="truths">
+      <div class="truths-label">Vienkāršas patiesības</div>
+      <ul class="truth-list">
+        <li>Veidnis paliek kā siltumizolācija</li>
+        <li>Betona kodols + EPS apvalks</li>
+        <li>Silts pamats bez papildu darbiem</li>
+      </ul>
+    </div>
+    <div class="card-body">
+      <div class="pros-cons">
+        <div class="pros">
+          <h3>Priekšrocības</h3>
+          <ul>
+            <li>Integrēta siltumizolācija</li>
+            <li>Ātrāka izbūve nekā klasiskajam</li>
+            <li>Mazāk mitruma problēmu</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h3>Trūkumi</h3>
+          <ul>
+            <li>Augstāka materiāla izmaksa</li>
+            <li>EPS jāaizsargā pret grauzējiem</li>
+            <li>Ierobežoti izmēri</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="memorize">
+      <span class="memorize-label">Izmaksas</span>
+      <span class="cost-badge cost-high">Augsts</span>
+      <span class="cost-note">veidņu materiāls palielina kopējās izmaksas</span>
+    </div>
+  </div>
+
+  <!-- 1d -->
+  <div class="card theme-lenta-d">
+    <div class="card-header">
+      <div class="card-icon">◻️</div>
+      <div><h2>Dobtie betona bloki</h2></div>
+      <span class="tag">Lenta 1d</span>
+    </div>
+    <div class="truths">
+      <div class="truths-label">Vienkāršas patiesības</div>
+      <ul class="truth-list">
+        <li>Papildus jāarmē un jālej betonu</li>
+        <li>Viegla manuāla montāža</li>
+        <li>Ekonomisks maziem objektiem</li>
+      </ul>
+    </div>
+    <div class="card-body">
+      <div class="pros-cons">
+        <div class="pros">
+          <h3>Priekšrocības</h3>
+          <ul>
+            <li>Nav nepieciešams celtnis</li>
+            <li>Viegli transportējami</li>
+            <li>Piemēroti remontam un papildinājumiem</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h3>Trūkumi</h3>
+          <ul></ul>
+        </div>
+      </div>
+    </div>
+    <div class="memorize">
+      <span class="memorize-label">Izmaksas</span>
+      <span class="cost-badge cost-low">Zems</span>
+      <span class="cost-note">lētākais lentas variants</span>
+    </div>
+  </div>
+
+  <!-- ══ PĀRĒJIE VEIDI ══ -->
+  <div class="section-divider">
+    <span class="section-divider-label">Citi pamatu veidi</span>
+    <div class="section-divider-line"></div>
+  </div>
+
+  <!-- PLĀTNES -->
+  <div class="card theme-platne">
+    <div class="card-header">
+      <div class="card-icon">⬛</div>
+      <div><h2>Plātnes pamati</h2></div>
+    </div>
+    <div class="truths">
+      <div class="truths-label">Vienkāršas patiesības</div>
+      <ul class="truth-list">
+        <li>Pamats = grīda</li>
+        <li>Visa ēka uz vienas plātnes</li>
+        <li>Vājā augsne? — plātne!</li>
+      </ul>
+    </div>
+    <div class="card-body">
+      <div class="pros-cons">
+        <div class="pros">
+          <h3>Priekšrocības</h3>
+          <ul>
+            <li>Arī vājai augsnei</li>
+            <li>Vienmērīga slodzes sadale</li>
+            <li>Darbojas kā grīda</li>
+            <li>Ātra izbūve</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h3>Trūkumi</h3>
+          <ul>
+            <li>Augstāka izmaksa nekā lentai</li>
+            <li>Grūti papildināt</li>
+            <li>Augstceltnēm nepiemērota</li>
+            <li>Profesionāli jāsagatavo pamatne zem betona</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="memorize">
+      <span class="memorize-label">Izmaksas</span>
+      <span class="cost-badge cost-med">Vidējs</span>
+      <span class="cost-note">dārgāka par lentu, bet darbojas kā grīda</span>
+    </div>
+  </div>
+
+  <!-- PUNKTVEIDA -->
+  <div class="card theme-punkts">
+    <div class="card-header">
+      <div class="card-icon">🔲</div>
+      <div><h2>Punktveida pamati</h2></div>
+    </div>
+    <div class="truths">
+      <div class="truths-label">Vienkāršas patiesības</div>
+      <ul class="truth-list">
+        <li>Kolonna uz betona "spilvena"</li>
+        <li>Nav sienu → nav lentas</li>
+        <li>Karkasam — ideāli</li>
+      </ul>
+    </div>
+    <div class="card-body">
+      <div class="pros-cons">
+        <div class="pros">
+          <h3>Priekšrocības</h3>
+          <ul>
+            <li>Ekonomiski karkasam</li>
+            <li>Mazs rakšanas apjoms</li>
+            <li>Ātra izbūve</li>
+            <li>Laba grunts pamatne — pietiek</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h3>Trūkumi</h3>
+          <ul>
+            <li>Vājai augsnei nepiemēroti</li>
+            <li>Nepieciešams savienojums starp punktiem — režģogs</li>
+            <li>Precīza novietošana obligāta</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="memorize">
+      <span class="memorize-label">Izmaksas</span>
+      <span class="cost-badge cost-low">Zems</span>
+      <span class="cost-note">ekonomisks pie karkasa ēkām</span>
+    </div>
+  </div>
+
+  <!-- PĀĻI -->
+  <div class="card theme-palis">
+    <div class="card-header">
+      <div class="card-icon">🏗️</div>
+      <div><h2>Pāļu pamati</h2></div>
+    </div>
+    <div class="truths">
+      <div class="truths-label">Vienkāršas patiesības</div>
+      <ul class="truth-list">
+        <li>Augsne vāja? — ej dziļāk</li>
+        <li>Pāļi sasniedz cieto slāni</li>
+        <li>Liela ēka = pāļi</li>
+      </ul>
+    </div>
+    <div class="card-body">
+      <div class="pros-cons">
+        <div class="pros">
+          <h3>Priekšrocības</h3>
+          <ul>
+            <li>Ļoti vāja augsne — nav problēma</li>
+            <li>Spēj pārnest lielas slodzes</li>
+            <li>Minimāla nosēšanās</li>
+            <li>Augstceltnēm piemērots</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h3>Trūkumi</h3>
+          <ul>
+            <li>Augstākās izmaksas</li>
+            <li>Speciāla tehnika obligāta</li>
+            <li>Trokšņaini darbi</li>
+            <li>Garāks izbūves laiks</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="memorize">
+      <span class="memorize-label">Izmaksas</span>
+      <span class="cost-badge cost-high">Augsts</span>
+      <span class="cost-note">speciāla tehnika un dziļa izbūve</span>
+    </div>
+  </div>
+
+  <!-- MINI PĀĻI -->
+  <div class="card theme-palis">
+    <div class="card-header">
+      <div class="card-icon">🏠</div>
+      <div><h2>Betona mini pāļi</h2></div>
+    </div>
+    <div class="truths">
+      <div class="truths-label">Vienkāršas patiesības</div>
+      <ul class="truth-list">
+        <li>Rūpnīcā gatavi — iedzen gruntī</li>
+        <li>20–30 pāļi dienā</li>
+        <li>Ideāli privātmājām</li>
+      </ul>
+    </div>
+    <div class="card-body">
+      <div class="pros-cons">
+        <div class="pros">
+          <h3>Priekšrocības</h3>
+          <ul>
+            <li>Ātra uzstādīšana</li>
+            <li>Kompakta iekārta — iekļūst šaurās vietās</li>
+            <li>Nav jāgaida sacietēšana</li>
+            <li>Piemēroti privātmājām un vieglām ēkām</li>
+            <li>Stabili arī vājā augsnē</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h3>Trūkumi</h3>
+          <ul>
+            <li>Nepieciešama speciāla iedzenamā iekārta</li>
+            <li>Ierobežots izmēru sortiments</li>
+            <li>Akmeņaina augsne — problēma</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="memorize">
+      <span class="memorize-label">Izmaksas</span>
+      <span class="cost-badge cost-med">Vidējs</span>
+      <span class="cost-note">iedzenamā iekārta, bet ātri un bez betonēšanas</span>
+    </div>
+  </div>
+
+  <!-- SKRŪVPĀĻI -->
+  <div class="card theme-skruvp">
+    <div class="card-header">
+      <div class="card-icon">🔩</div>
+      <div><h2>Skrūvpāļu pamati</h2></div>
+    </div>
+    <div class="truths">
+      <div class="truths-label">Vienkāršas patiesības</div>
+      <ul class="truth-list">
+        <li>Ieskrūvē → nerok</li>
+        <li>Noņemams un pārvietojams</li>
+        <li>Sarežģīts reljefs — nav šķērslis</li>
+      </ul>
+    </div>
+    <div class="card-body">
+      <div class="pros-cons">
+        <div class="pros">
+          <h3>Priekšrocības</h3>
+          <ul>
+            <li>Ātra uzstādīšana (1 diena)</li>
+            <li>Nav nepieciešama rakšana</li>
+            <li>Noņemami un pārvietojami</li>
+            <li>Sarežģīts reljefs — piemērots</li>
+            <li>Ekoloģiski</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h3>Trūkumi</h3>
+          <ul>
+            <li>Smagām ēkām nepiemēroti</li>
+            <li>Korozijas risks</li>
+            <li>Akmeņaina augsne — problēma</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="memorize">
+      <span class="memorize-label">Izmaksas</span>
+      <span class="cost-badge cost-med">Vidējs</span>
+      <span class="cost-note">lētāks par pāļiem, dārgāks par lentu</span>
+    </div>
+  </div>
+
+</div><!-- /grid -->
+
+<!-- SUMMARY TABLE -->
+<div class="summary-wrap">
+  <h2>Salīdzinājums — ātrā uzziņa</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Pamatu veids</th>
+        <th>Izmaksas</th>
+        <th>Augsnes prasības</th>
+        <th>Labākais pielietojums</th>
+        <th>Ātrums</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>🧱 Lentas — monolīts</td>
+        <td><span class="badge badge-med">Vidējs</span></td>
+        <td>Laba vai vidēja augsne</td>
+        <td>Privātmājas, mūra ēkas</td>
+        <td><span class="badge badge-fast">Ātrs</span></td>
+      </tr>
+      <tr>
+        <td>📦 Lentas — FBS bloki</td>
+        <td><span class="badge badge-low">Zems</span></td>
+        <td>Laba vai vidēja augsne</td>
+        <td>Ātrai celtniecībai</td>
+        <td><span class="badge badge-fast">Ātrs</span></td>
+      </tr>
+      <tr>
+        <td>🧩 Lentas — nenoņemamie veidņi</td>
+        <td><span class="badge badge-high">Augsts</span></td>
+        <td>Laba vai vidēja augsne</td>
+        <td>Energoefektīvas ēkas</td>
+        <td><span class="badge badge-fast">Ātrs</span></td>
+      </tr>
+      <tr>
+        <td>◻️ Lentas — dobtie bloki</td>
+        <td><span class="badge badge-low">Zems</span></td>
+        <td>Laba vai vidēja augsne</td>
+        <td>Mazi objekti, remonts</td>
+        <td><span class="badge badge-fast">Ātrs</span></td>
+      </tr>
+      <tr>
+        <td>⬛ Plātnes pamati</td>
+        <td><span class="badge badge-med">Vidējs</span></td>
+        <td>Arī vāja augsne</td>
+        <td>Rūpnieciskas ēkas, vāja augsne</td>
+        <td><span class="badge badge-fast">Ātrs</span></td>
+      </tr>
+      <tr>
+        <td>🔲 Punktveida pamati</td>
+        <td><span class="badge badge-low">Zems</span></td>
+        <td>Laba augsne</td>
+        <td>Karkasa ēkas, kolonnas</td>
+        <td><span class="badge badge-fast">Ātrs</span></td>
+      </tr>
+      <tr>
+        <td>🏠 Betona mini pāļi</td>
+        <td><span class="badge badge-med">Vidējs</span></td>
+        <td>Laba vai vidēja augsne</td>
+        <td>Privātmājas, vieglas ēkas</td>
+        <td><span class="badge badge-fast">Ātrs</span></td>
+      </tr>
+      <tr>
+        <td>🏗️ Pāļu pamati</td>
+        <td><span class="badge badge-high">Augsts</span></td>
+        <td>Jebkura, arī ļoti vāja</td>
+        <td>Augstceltnes, smaga ēka</td>
+        <td><span class="badge badge-slow">Lēns</span></td>
+      </tr>
+      <tr>
+        <td>🔩 Skrūvpāļu pamati</td>
+        <td><span class="badge badge-med">Vidējs</span></td>
+        <td>Vidēja, bez akmeņiem</td>
+        <td>Terases, moduļi, sarežģīts reljefs</td>
+        <td><span class="badge badge-fast">Ātrs</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<footer>BK konstrukciju pamatu veidi · Volko Engineering · 2026</footer>
+
+</body>
+</html>
