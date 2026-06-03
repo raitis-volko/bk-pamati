@@ -168,6 +168,7 @@
   .theme-lenta-b .card-icon { background: #ccfbf1; }
   .theme-lenta-c .card-icon { background: #ede9fe; }
   .theme-lenta-d .card-icon { background: #fef9c3; }
+  .theme-lenta-e .card-icon { background: #fce7f3; }
   .theme-platne   .card-icon { background: #dcfce7; }
   .theme-punkts   .card-icon { background: #ffedd5; }
   .theme-palis    .card-icon { background: #fce7f3; }
@@ -178,10 +179,49 @@
   .theme-lenta-b .card-header h2 { color: #0f766e; }
   .theme-lenta-c .card-header h2 { color: #7c3aed; }
   .theme-lenta-d .card-header h2 { color: #b45309; }
+  .theme-lenta-e .card-header h2 { color: #0e7490; }
   .theme-platne   .card-header h2 { color: #15803d; }
   .theme-punkts   .card-header h2 { color: #c2410c; }
   .theme-palis    .card-header h2 { color: #be185d; }
   .theme-skruvp   .card-header h2 { color: #6d28d9; }
+
+  /* ── FILTERS ── */
+  .filter-wrap {
+    margin-bottom: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .filter-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+  }
+  .filter-group-label {
+    font-size: 0.68rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.7px;
+    color: #8a9ab0; margin-right: 2px; white-space: nowrap;
+  }
+  .filter-btn {
+    padding: 4px 13px; border-radius: 20px; border: 1.5px solid #c8d8ef;
+    background: #fff; color: #4472c4; font-size: 0.78rem; font-weight: 600;
+    cursor: pointer; transition: all 0.15s; white-space: nowrap;
+  }
+  .filter-btn:hover { background: #eef3fb; }
+  .filter-btn.active { background: #1F3864; color: #fff; border-color: #1F3864; }
+  .filter-reset {
+    padding: 4px 13px; border-radius: 20px; border: 1.5px solid #e8eef5;
+    background: #f5f8fc; color: #8a9ab0; font-size: 0.78rem; font-weight: 600;
+    cursor: pointer;
+  }
+  .filter-reset:hover { border-color: #c8d8ef; color: #4472c4; }
+  tbody tr.hidden { display: none; }
+  .filter-count {
+    font-size: 0.75rem; color: #8a9ab0; margin-left: auto;
+    align-self: center; white-space: nowrap;
+  }
 
   /* ── SUMMARY TABLE ── */
   .summary-wrap {
@@ -393,6 +433,50 @@
       <span class="memorize-label">Izmaksas</span>
       <span class="cost-badge cost-low">Zems</span>
       <span class="cost-note">lētākais lentas variants</span>
+    </div>
+  </div>
+
+  <!-- 1e YTONG -->
+  <div class="card theme-lenta-e">
+    <div class="card-header">
+      <div class="card-icon">🪨</div>
+      <div><h2>Porainā betona bloki (Ytong)</h2></div>
+      <span class="tag">Lenta 1e</span>
+    </div>
+    <div class="truths">
+      <div class="truths-label">Vienkāršas patiesības</div>
+      <ul class="truth-list">
+        <li>Viegls kā koks — griežams ar zāģi</li>
+        <li>Mūrē ar speciālu plāno javu</li>
+        <li>Silts jau bez papildu izolācijas</li>
+      </ul>
+    </div>
+    <div class="card-body">
+      <div class="pros-cons">
+        <div class="pros">
+          <h3>Priekšrocības</h3>
+          <ul>
+            <li>Nav celtnis vajadzīgs</li>
+            <li>Viegla manuāla montāža</li>
+            <li>Laba siltumizolācija</li>
+            <li>Viegli apstrādājami — griežami, urbami</li>
+            <li>Ātra izbūve</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h3>Trūkumi</h3>
+          <ul>
+            <li>Hidroizolācija obligāta</li>
+            <li>Zemāka nestspēja nekā betonam</li>
+            <li>Jutīgi pret mehāniskiem bojājumiem</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="memorize">
+      <span class="memorize-label">Izmaksas</span>
+      <span class="cost-badge cost-low">Zems</span>
+      <span class="cost-note">materiāls lēts, montāža ātra</span>
     </div>
   </div>
 
@@ -621,7 +705,31 @@
 <!-- SUMMARY TABLE -->
 <div class="summary-wrap">
   <h2>Salīdzinājums — ātrā uzziņa</h2>
-  <table>
+
+  <div class="filter-wrap">
+    <div class="filter-group">
+      <span class="filter-group-label">Izmaksas</span>
+      <button class="filter-btn" data-filter="cost" data-val="zems">Zems</button>
+      <button class="filter-btn" data-filter="cost" data-val="videjs">Vidējs</button>
+      <button class="filter-btn" data-filter="cost" data-val="augsts">Augsts</button>
+    </div>
+    <div class="filter-group">
+      <span class="filter-group-label">Augsne</span>
+      <button class="filter-btn" data-filter="soil" data-val="laba">Laba augsne</button>
+      <button class="filter-btn" data-filter="soil" data-val="vaja">Arī vājā augsnē</button>
+    </div>
+    <div class="filter-group">
+      <span class="filter-group-label">Pielietojums</span>
+      <button class="filter-btn" data-filter="use" data-val="privatmaja">Privātmāja</button>
+      <button class="filter-btn" data-filter="use" data-val="karkass">Karkass</button>
+      <button class="filter-btn" data-filter="use" data-val="terase">Terase / modulis</button>
+      <button class="filter-btn" data-filter="use" data-val="smaga">Smaga / augstceltne</button>
+    </div>
+    <button class="filter-reset" onclick="resetFilters()">✕ Notīrīt</button>
+    <span class="filter-count" id="filterCount"></span>
+  </div>
+
+  <table id="compareTable">
     <thead>
       <tr>
         <th>Pamatu veids</th>
@@ -632,63 +740,70 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
+      <tr data-cost="videjs" data-soil="laba" data-use="privatmaja">
         <td>🧱 Lentas — monolīts</td>
         <td><span class="badge badge-med">Vidējs</span></td>
         <td>Laba vai vidēja augsne</td>
         <td>Privātmājas, mūra ēkas</td>
         <td><span class="badge badge-fast">Ātrs</span></td>
       </tr>
-      <tr>
+      <tr data-cost="zems" data-soil="laba" data-use="privatmaja">
         <td>📦 Lentas — FBS bloki</td>
         <td><span class="badge badge-low">Zems</span></td>
         <td>Laba vai vidēja augsne</td>
         <td>Ātrai celtniecībai</td>
         <td><span class="badge badge-fast">Ātrs</span></td>
       </tr>
-      <tr>
+      <tr data-cost="augsts" data-soil="laba" data-use="privatmaja">
         <td>🧩 Lentas — nenoņemamie veidņi</td>
         <td><span class="badge badge-high">Augsts</span></td>
         <td>Laba vai vidēja augsne</td>
         <td>Energoefektīvas ēkas</td>
         <td><span class="badge badge-fast">Ātrs</span></td>
       </tr>
-      <tr>
+      <tr data-cost="zems" data-soil="laba" data-use="privatmaja">
         <td>◻️ Lentas — dobtie bloki</td>
         <td><span class="badge badge-low">Zems</span></td>
         <td>Laba vai vidēja augsne</td>
         <td>Mazi objekti, remonts</td>
         <td><span class="badge badge-fast">Ātrs</span></td>
       </tr>
-      <tr>
+      <tr data-cost="zems" data-soil="laba" data-use="privatmaja">
+        <td>🪨 Lentas — Ytong bloki</td>
+        <td><span class="badge badge-low">Zems</span></td>
+        <td>Laba augsne</td>
+        <td>Privātmājas, vieglas ēkas</td>
+        <td><span class="badge badge-fast">Ātrs</span></td>
+      </tr>
+      <tr data-cost="videjs" data-soil="vaja" data-use="smaga">
         <td>⬛ Plātnes pamati</td>
         <td><span class="badge badge-med">Vidējs</span></td>
         <td>Arī vāja augsne</td>
         <td>Rūpnieciskas ēkas, vāja augsne</td>
         <td><span class="badge badge-fast">Ātrs</span></td>
       </tr>
-      <tr>
+      <tr data-cost="zems" data-soil="laba" data-use="karkass">
         <td>🔲 Punktveida pamati</td>
         <td><span class="badge badge-low">Zems</span></td>
         <td>Laba augsne</td>
         <td>Karkasa ēkas, kolonnas</td>
         <td><span class="badge badge-fast">Ātrs</span></td>
       </tr>
-      <tr>
+      <tr data-cost="videjs" data-soil="laba" data-use="privatmaja">
         <td>🏠 Betona mini pāļi</td>
         <td><span class="badge badge-med">Vidējs</span></td>
         <td>Laba vai vidēja augsne</td>
         <td>Privātmājas, vieglas ēkas</td>
         <td><span class="badge badge-fast">Ātrs</span></td>
       </tr>
-      <tr>
+      <tr data-cost="augsts" data-soil="vaja" data-use="smaga">
         <td>🏗️ Pāļu pamati</td>
         <td><span class="badge badge-high">Augsts</span></td>
         <td>Jebkura, arī ļoti vāja</td>
         <td>Augstceltnes, smaga ēka</td>
         <td><span class="badge badge-slow">Lēns</span></td>
       </tr>
-      <tr>
+      <tr data-cost="videjs" data-soil="laba" data-use="terase">
         <td>🔩 Skrūvpāļu pamati</td>
         <td><span class="badge badge-med">Vidējs</span></td>
         <td>Vidēja, bez akmeņiem</td>
@@ -698,6 +813,48 @@
     </tbody>
   </table>
 </div>
+
+<script>
+const activeFilters = { cost: null, soil: null, use: null };
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const group = btn.dataset.filter;
+    const val = btn.dataset.val;
+    if (activeFilters[group] === val) {
+      activeFilters[group] = null;
+      btn.classList.remove('active');
+    } else {
+      document.querySelectorAll(`.filter-btn[data-filter="${group}"]`).forEach(b => b.classList.remove('active'));
+      activeFilters[group] = val;
+      btn.classList.add('active');
+    }
+    applyFilters();
+  });
+});
+
+function applyFilters() {
+  const rows = document.querySelectorAll('#compareTable tbody tr');
+  let visible = 0;
+  rows.forEach(row => {
+    const costOk  = !activeFilters.cost || row.dataset.cost === activeFilters.cost;
+    const soilOk  = !activeFilters.soil || row.dataset.soil === activeFilters.soil;
+    const useOk   = !activeFilters.use  || row.dataset.use  === activeFilters.use;
+    const show = costOk && soilOk && useOk;
+    row.classList.toggle('hidden', !show);
+    if (show) visible++;
+  });
+  const total = rows.length;
+  document.getElementById('filterCount').textContent =
+    (visible < total) ? `${visible} no ${total}` : '';
+}
+
+function resetFilters() {
+  Object.keys(activeFilters).forEach(k => activeFilters[k] = null);
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  applyFilters();
+}
+</script>
 
 <footer>BK konstrukciju pamatu veidi · Volko Engineering · 2026</footer>
 
