@@ -745,6 +745,12 @@
       <button class="filter-btn" data-filter="use" data-val="terase">Terase / modulis</button>
       <button class="filter-btn" data-filter="use" data-val="smaga">Smaga / augstceltne</button>
     </div>
+    <div class="filter-group">
+      <span class="filter-group-label">Ilgmūžība</span>
+      <button class="filter-btn" data-filter="ilg" data-val="augsta">Augsta</button>
+      <button class="filter-btn" data-filter="ilg" data-val="videja">Vidēja</button>
+      <button class="filter-btn" data-filter="ilg" data-val="zema">Zema</button>
+    </div>
     <button class="filter-reset" onclick="resetFilters()">✕ Notīrīt</button>
     <span class="filter-count" id="filterCount"></span>
   </div>
@@ -757,85 +763,96 @@
         <th>Grunts prasības</th>
         <th>Labākais pielietojums</th>
         <th>Ātrums</th>
+        <th>Ilgmūžība</th>
       </tr>
     </thead>
     <tbody>
-      <tr data-cost="augsts" data-soil="laba" data-use="privatmaja">
+      <tr data-cost="augsts" data-soil="laba" data-use="privatmaja" data-ilg="augsta">
         <td>🧱 Lentas — monolīts</td>
         <td><span class="badge badge-high">Augsts</span></td>
         <td>Laba vai vidēja grunts</td>
         <td>Privātmājas, mūra ēkas</td>
         <td><span class="badge badge-slow">Lēns</span></td>
+        <td><span class="badge badge-low">Augsta</span></td>
       </tr>
-      <tr data-cost="videjs" data-soil="laba" data-use="privatmaja">
+      <tr data-cost="videjs" data-soil="laba" data-use="privatmaja" data-ilg="videja">
         <td>📦 Lentas — FBS bloki</td>
         <td><span class="badge badge-med">Vidējs</span></td>
         <td>Laba vai vidēja grunts</td>
         <td>Ātrai celtniecībai</td>
         <td><span class="badge badge-med">Vidējs</span></td>
+        <td><span class="badge badge-med">Vidēja</span></td>
       </tr>
-      <tr data-cost="augsts" data-soil="laba" data-use="privatmaja">
+      <tr data-cost="augsts" data-soil="laba" data-use="privatmaja" data-ilg="augsta">
         <td>🧩 Lentas — nenoņemamie veidņi</td>
         <td><span class="badge badge-high">Augsts</span></td>
         <td>Laba vai vidēja grunts</td>
         <td>Energoefektīvas ēkas</td>
         <td><span class="badge badge-fast">Ātrs</span></td>
+        <td><span class="badge badge-low">Augsta</span></td>
       </tr>
-      <tr data-cost="augsts" data-soil="laba" data-use="privatmaja">
+      <tr data-cost="augsts" data-soil="laba" data-use="privatmaja" data-ilg="augsta">
         <td>◻️ Lentas — dobtie bloki</td>
         <td><span class="badge badge-high">Augsts</span></td>
         <td>Laba vai vidēja grunts</td>
         <td>Mazi objekti, remonts</td>
         <td><span class="badge badge-slow">Lēns</span></td>
+        <td><span class="badge badge-low">Augsta</span></td>
       </tr>
-      <tr data-cost="zems" data-soil="laba" data-use="terase">
+      <tr data-cost="zems" data-soil="laba" data-use="terase" data-ilg="zema">
         <td>🪨 Lentas — pilnie betona bloki</td>
         <td><span class="badge badge-low">Zems</span></td>
         <td>Laba grunts</td>
         <td>Terases, dārza mājas, pagaidu pamats</td>
         <td><span class="badge badge-med">Vidējs</span></td>
+        <td><span class="badge badge-high">Zema</span></td>
       </tr>
-      <tr data-cost="augsts" data-soil="vaja" data-use="smaga">
+      <tr data-cost="augsts" data-soil="vaja" data-use="smaga" data-ilg="videja">
         <td>⬛ Plātnes pamati</td>
         <td><span class="badge badge-high">Augsts</span></td>
         <td>Arī vāja grunts</td>
         <td>Rūpnieciskas ēkas, vāja grunts</td>
         <td><span class="badge badge-fast">Ātrs</span></td>
+        <td><span class="badge badge-med">Vidēja</span></td>
       </tr>
-      <tr data-cost="zems" data-soil="laba" data-use="karkass">
+      <tr data-cost="zems" data-soil="laba" data-use="karkass" data-ilg="zema">
         <td>🔲 Punktveida pamati</td>
         <td><span class="badge badge-low">Zems</span></td>
         <td>Laba grunts</td>
         <td>Karkasa ēkas, kolonnas</td>
         <td><span class="badge badge-fast">Ātrs</span></td>
+        <td><span class="badge badge-high">Zema</span></td>
       </tr>
-      <tr data-cost="videjs" data-soil="laba" data-use="privatmaja">
+      <tr data-cost="videjs" data-soil="laba" data-use="privatmaja" data-ilg="videja">
         <td>🏠 Betona mini pāļi</td>
         <td><span class="badge badge-med">Vidējs</span></td>
         <td>Laba vai vidēja grunts</td>
         <td>Privātmājas, vieglas ēkas</td>
         <td><span class="badge badge-fast">Ātrs</span></td>
+        <td><span class="badge badge-med">Vidēja</span></td>
       </tr>
-      <tr data-cost="augsts" data-soil="vaja" data-use="smaga">
+      <tr data-cost="augsts" data-soil="vaja" data-use="smaga" data-ilg="augsta">
         <td>🏗️ Pāļu pamati</td>
         <td><span class="badge badge-high">Augsts</span></td>
         <td>Jebkura, arī ļoti vāja</td>
         <td>Augstceltnes, smaga ēka</td>
         <td><span class="badge badge-slow">Lēns</span></td>
+        <td><span class="badge badge-low">Augsta</span></td>
       </tr>
-      <tr data-cost="zems" data-soil="laba" data-use="terase">
+      <tr data-cost="zems" data-soil="laba" data-use="terase" data-ilg="zema">
         <td>🔩 Skrūvpāļu pamati</td>
         <td><span class="badge badge-low">Zems</span></td>
         <td>Ne visām gruntīm</td>
         <td>Vieglas ēkas, sarežģīts reljefs</td>
         <td><span class="badge badge-fast">Ātrs</span></td>
+        <td><span class="badge badge-high">Zema</span></td>
       </tr>
     </tbody>
   </table>
 </div>
 
 <script>
-const activeFilters = { cost: null, soil: null, use: null };
+const activeFilters = { cost: null, soil: null, use: null, ilg: null };
 
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -860,7 +877,8 @@ function applyFilters() {
     const costOk  = !activeFilters.cost || row.dataset.cost === activeFilters.cost;
     const soilOk  = !activeFilters.soil || row.dataset.soil === activeFilters.soil;
     const useOk   = !activeFilters.use  || row.dataset.use  === activeFilters.use;
-    const show = costOk && soilOk && useOk;
+    const ilgOk   = !activeFilters.ilg  || row.dataset.ilg  === activeFilters.ilg;
+    const show = costOk && soilOk && useOk && ilgOk;
     row.classList.toggle('hidden', !show);
     if (show) visible++;
   });
